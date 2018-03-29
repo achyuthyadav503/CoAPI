@@ -1,6 +1,8 @@
   <?php
 include_once('confi.php');
 
+ $rows = array();
+
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$data = json_decode(file_get_contents('php://input'), true);
 $location = isset($data['location']) ? mysqli_real_escape_string($conn,$data['location']) : "";
@@ -15,7 +17,7 @@ $sql = "SELECT * FROM register_office where Location='".$location."'";
 
  //$result = $conn->query($sql);
  $result = mysqli_query($conn,$sql);
- $rows = array();
+
   $res = array();
  // $res = $result->fetch_array();
  if ($result) {
@@ -39,7 +41,7 @@ $json = array("status" => 1, "msg" => "Success",'list'=>$rows);
 
  
 }else{
- $json = array("status" => 0, "msg" => "Request method not accepted". $conn->error);
+ $json = array("status" => 0, "msg" => "Request method not accepted". $conn->error,'list'=>$rows);
 } 
 
 mysqli_close($conn); 

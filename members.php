@@ -16,19 +16,19 @@ $sql = "SELECT * FROM company";
  if (mysqli_num_rows($result) > 0) {
  while($row = $result->fetch_array()){
     $json1['id'] = $row['id'];
-    $json1['company_name'] = $row['company_name'];
-	 $json1['company_logo'] = $row['company_logo'];
-	  $json1['cover_pic'] = $row['cover_pic'];
+    $json1['companyName'] = $row['company_name'];
+	 $json1['companyLogo'] = $row['company_logo'];
+	  $json1['coverPic'] = $row['cover_pic'];
 	   $json1['description'] = $row['description'];
 	
 	$rows[] = $json1;
 }
-$json = array("status" => 1, "msg" => "Success",'list'=>$rows);
+$json = array("status" => 1, "msg" => "Success",'memberList'=>$rows);
  }else{
-	 $json = array("status" => 1, "msg" => "No Office available",'list'=>$rows);
+	 $json = array("status" => 1, "msg" => "No Office available",'memberList'=>$rows);
  }
  }else{
-	 $json = array("status" => 1, "msg" => "No Office available",'list'=>$rows);
+	 $json = array("status" => 1, "msg" => "No Office available",'memberList'=>$rows);
  }
 
  

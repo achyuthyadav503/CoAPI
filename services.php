@@ -3,7 +3,7 @@ include_once('confi.php');
 
 
 $sql = "SELECT s.service_name,u.name,us.service_id,us.user_id FROM services_mater s,user_services us,users u where s.id=us.service_id and u.id=us.user_id";
-//echo $sql;
+//secho $sql;
 
  //$result = $conn->query($sql);
  $result = mysqli_query($conn,$sql);
@@ -20,12 +20,12 @@ $sql = "SELECT s.service_name,u.name,us.service_id,us.user_id FROM services_mate
 	
 	$rows[] = $json1;
 }
-$json = array("status" => 1, "msg" => "Success",'list'=>$rows);
+$json = array("status" => 1, "msg" => "Success",'serviceList'=>$rows);
  }else{
-	 $json = array("status" => 1, "msg" => "No services available",'list'=>$rows);
+	 $json = array("status" => 1, "msg" => "No services available",'serviceList'=>$rows);
  }
  }else{
-	 $json = array("status" => 1, "msg" => "No services available",'list'=>$rows);
+	 $json = array("status" => 1, "msg" => "No services available",'serviceList'=>$rows);
  }
 
  
