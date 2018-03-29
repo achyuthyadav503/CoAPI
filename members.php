@@ -1,16 +1,10 @@
-  <?php
+ <?php
 include_once('confi.php');
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-	$data = json_decode(file_get_contents('php://input'), true);
-$location = isset($data['location']) ? mysqli_real_escape_string($conn,$data['location']) : "";
-$NoSeats = (int) isset($data['NoSeats']) ? mysqli_real_escape_string($conn,$data['NoSeats']) : "";
-
 
 
  
  // get data into data base
-$sql = "SELECT * FROM register_office where Location='".$location."'";
+$sql = "SELECT * FROM company";
 //echo $sql;
 
  //$result = $conn->query($sql);
@@ -22,10 +16,10 @@ $sql = "SELECT * FROM register_office where Location='".$location."'";
  if (mysqli_num_rows($result) > 0) {
  while($row = $result->fetch_array()){
     $json1['id'] = $row['id'];
-    $json1['OfficeName'] = $row['OfficeName'];
-	 $json1['Address'] = $row['Address'];
-	  $json1['Location'] = $row['Location'];
-	   $json1['City'] = $row['City'];
+    $json1['company_name'] = $row['company_name'];
+	 $json1['company_logo'] = $row['company_logo'];
+	  $json1['cover_pic'] = $row['cover_pic'];
+	   $json1['description'] = $row['description'];
 	
 	$rows[] = $json1;
 }
@@ -38,9 +32,7 @@ $json = array("status" => 1, "msg" => "Success",'list'=>$rows);
  }
 
  
-}else{
- $json = array("status" => 0, "msg" => "Request method not accepted". $conn->error);
-} 
+
 
 mysqli_close($conn); 
 
