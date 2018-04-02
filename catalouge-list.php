@@ -45,6 +45,9 @@ $sql = "SELECT * FROM city";
     $json2['id'] = $row['id'];
 	$json2['city'] = $row['city'];
 	$json2['active'] = $row['active'];
+	$city = $row['id'];
+	if(!array_key_exists($city, $rows))
+     $rows[$city] = array();
 	 
 	$cities[] = $json2;
 }
