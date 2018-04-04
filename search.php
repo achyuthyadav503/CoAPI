@@ -5,14 +5,19 @@ include_once('confi.php');
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$data = json_decode(file_get_contents('php://input'), true);
-$location = isset($data['location']) ? mysqli_real_escape_string($conn,$data['location']) : "";
+$city = (int) isset($data['location']) ? mysqli_real_escape_string($conn,$data['City']) : "";
+$location = (int) isset($data['location']) ? mysqli_real_escape_string($conn,$data['location']) : "";
 $NoSeats = (int) isset($data['NoSeats']) ? mysqli_real_escape_string($conn,$data['NoSeats']) : "";
 
 
 
  
  // get data into data base
-$sql = "SELECT * FROM register_office where Location='".$location."'";
+$sql = "SELECT ro.id,ro.OfficeName,ro.Address,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location";
+if($city>0)
+$sql = $sql." AND ro.City='".$city."'";
+if($location>0)
+$sql = $sql." AND ro.Location='".$location."'";
 //echo $sql;
 
  //$result = $conn->query($sql);
