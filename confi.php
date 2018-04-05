@@ -1,3 +1,3 @@
 <?php
- $conn = mysqli_connect("localhost", "root", "", 'resttest');
+ $conn = mysqli_connect("localhost", "root", "", 'member_zone');
  ?>

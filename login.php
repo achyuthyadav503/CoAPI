@@ -21,7 +21,8 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
  if($result){
 
  $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-	   $count = 1;
+ $count=0;
+	   
 	  if ($row!=null)
 	  {
       $active = $row['status'];
