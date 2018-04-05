@@ -10,6 +10,7 @@ $CompanyName = isset($data['CompanyName']) ? mysqli_real_escape_string($conn,$da
 $description = isset($data['Description']) ? mysqli_real_escape_string($conn,$data['Description']) : "";
 $joining_date = isset($data['joiningDate']) ? mysqli_real_escape_string($conn,$data['joiningDate']) : "";
 $Total_monthly_rent = isset($data['Tmrent']) ? mysqli_real_escape_string($conn,$data['Tmrent']) : "";
+$officeId = (int) isset($data['officeId']) ? mysqli_real_escape_string($conn,$data['officeId']) : 0;
 
 
 //echo (file_get_contents('php://input'));
@@ -18,9 +19,9 @@ $Total_monthly_rent = isset($data['Tmrent']) ? mysqli_real_escape_string($conn,$
 
 
 
- $json1 = array("CompanyName" => $CompanyName , "description" => $description, "joining_date" => $joining_date, "Total_monthly_rent" => $Total_monthly_rent, "company_type" => $CompanyType);
+ $json1 = array("CompanyName" => $CompanyName , "description" => $description, "joining_date" => $joining_date, "Total_monthly_rent" => $Total_monthly_rent, "company_type" => $CompanyType,"officeId"=>$officeId);
  // Insert data into data base
-$sql = "INSERT INTO company (company_name, description, joining_date,Total_monthly_rent,company_type) VALUES ('" . $CompanyName . "', '" . $description . "', '" . $joining_date . "', '" . $Total_monthly_rent . "', '" . $CompanyType . "');";
+$sql = "INSERT INTO company (company_name, description, joining_date,Total_monthly_rent,company_type,office_id) VALUES ('" . $CompanyName . "', '" . $description . "', '" . $joining_date . "', '" . $Total_monthly_rent . "', '" . $CompanyType . "','".$officeId."');";
  $qur = $conn->query($sql);
    $id = $conn->insert_id;
  $json1['companyId'] = $id;
