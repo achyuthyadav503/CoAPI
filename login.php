@@ -30,6 +30,12 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
       if($count == 1) {
 		 $json1['id'] = $row['id'];
          $json1['name'] = $row['name'];
+		  $json1['email'] = $row['email'];
+		   $json1['mobile'] = $row['mobile'];
+		    $json1['status'] = $row['status'];
+			 $json1['officeId'] = $row['office_id'];
+			  $json1['companyId'] = $row['company_id'];
+			   $json1['role'] = $row['role'];
         
       }else {
          //$error = "Your Login Name or Password is invalid";

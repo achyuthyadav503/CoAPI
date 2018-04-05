@@ -5,6 +5,7 @@ include_once('confi.php');
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	
 $data = json_decode(file_get_contents('php://input'), true);
+$CompanyType = isset($data['CompanyType']) ? mysqli_real_escape_string($conn,$data['CompanyType']) : "";
 $CompanyName = isset($data['CompanyName']) ? mysqli_real_escape_string($conn,$data['CompanyName']) : "";
 $description = isset($data['Description']) ? mysqli_real_escape_string($conn,$data['Description']) : "";
 $joining_date = isset($data['joiningDate']) ? mysqli_real_escape_string($conn,$data['joiningDate']) : "";
@@ -17,9 +18,9 @@ $Total_monthly_rent = isset($data['Tmrent']) ? mysqli_real_escape_string($conn,$
 
 
 
- $json1 = array("CompanyName" => $CompanyName , "description" => $description, "joining_date" => $joining_date, "Total_monthly_rent" => $Total_monthly_rent);
+ $json1 = array("CompanyName" => $CompanyName , "description" => $description, "joining_date" => $joining_date, "Total_monthly_rent" => $Total_monthly_rent, "company_type" => $CompanyType);
  // Insert data into data base
-$sql = "INSERT INTO company (company_name, description, joining_date,Total_monthly_rent) VALUES ('" . $CompanyName . "', '" . $description . "', '" . $joining_date . "', '" . $Total_monthly_rent . "');";
+$sql = "INSERT INTO company (company_name, description, joining_date,Total_monthly_rent,company_type) VALUES ('" . $CompanyName . "', '" . $description . "', '" . $joining_date . "', '" . $Total_monthly_rent . "', '" . $CompanyType . "');";
  $qur = $conn->query($sql);
    $id = $conn->insert_id;
  $json1['companyId'] = $id;
