@@ -48,20 +48,23 @@ $sql .=  "INNER JOIN users y ON (m.message_to = y.id) where (x.id=$from or y.id=
 		$rows[] = $json1;
 	else
 	 $rows[$userby] = $json1;
-	 
-	 
 	
-	 
-	
+}
+if($to==0){
+	$temp = array();
+	foreach($rows as $row){
+		$temp[] = $row;
+	}
+	$rows = $temp;
 }
 //echo var_dump($rows);
 //exit();
 $json = array("status" => 1, "msg" => "Success",'messages'=>$rows);
  }else{
-	 $json = array("status" => 1, "msg" => "No services available",'messages'=>$rows);
+	 $json = array("status" => 1, "msg" => "No messages available",'messages'=>$rows);
  }
  }else{
-	 $json = array("status" => 1, "msg" => "No services available",'messages'=>$rows);
+	 $json = array("status" => 1, "msg" => "No messages available",'messages'=>$rows);
  }
 
  

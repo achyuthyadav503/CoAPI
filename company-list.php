@@ -2,10 +2,14 @@
 include_once('confi.php');
 
 
+$data = json_decode(file_get_contents('php://input'), true);
+$office = isset($data['office']) ? mysqli_real_escape_string($conn,$data['office']) : 0;
  
  // get data into data base
 $sql = "SELECT * FROM company";
 
+if($office>0)
+$sql .= " where office_id=$office";
  $result = mysqli_query($conn,$sql);
  $rows = array();
   $res = array();
