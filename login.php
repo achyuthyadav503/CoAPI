@@ -12,6 +12,8 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 //$PassWord = 'kaspy';
 
  $json1 = array("UserName" => $UserName);
+  $companyJson = array();
+  $paymentJson = array();
  // Insert data into data base
 
  
@@ -31,13 +33,16 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 	  $role = $row['role'];
 	   $sqlCompany = "SELECT * FROM company WHERE id ='$companyId'";
 	   	$companyResult = mysqli_query($conn,$sqlCompany);
+		 if($companyResult){
 		$companyRow = mysqli_fetch_array($companyResult,MYSQLI_ASSOC);
 		
+		if ($companyRow!=null){
 		$sqlPayment = "SELECT SUM(amount_paid) amount_paid FROM payment WHERE company_id ='$companyId' AND date_of_payment BETWEEN '2018-04-01' AND '2018-04-30'";
 	   	$paymentResult = mysqli_query($conn,$sqlPayment);
+
+		if($paymentResult){
 		$paymentRow = mysqli_fetch_array($paymentResult,MYSQLI_ASSOC);
-		
-		
+		if ($paymentRow!=null){
 		  $companyJson['id'] = $companyRow['id'];
 		   $companyJson['company_name'] = $companyRow['company_name'];
 		    $companyJson['total_monthly_rent'] = $companyRow['Total_monthly_rent'];
@@ -47,7 +52,10 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 		    $paymentJson['due'] = $companyRow['Total_monthly_rent'] - $paymentRow['amount_paid'];
 			  $paymentJson['dueDate'] = '2018-05-10';
 		    //$paymentJson['dateofPayment'] = $paymentRow['date_of_payment'];
-			
+			}
+			}
+			}
+			}
 	  
 	  $count = 1;
       }		
