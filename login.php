@@ -16,6 +16,7 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 
  
   $sql = "SELECT * FROM users WHERE email = '$UserName' and pwd = '$PassWord' and status =1";
+ 
 	$result = mysqli_query($conn,$sql);
 
  if($result){
@@ -26,6 +27,28 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 	  if ($row!=null)
 	  {
       $active = $row['status'];
+	  $companyId = $row['company_id'];
+	  $role = $row['role'];
+	   $sqlCompany = "SELECT * FROM company WHERE id ='$companyId'";
+	   	$companyResult = mysqli_query($conn,$sqlCompany);
+		$companyRow = mysqli_fetch_array($companyResult,MYSQLI_ASSOC);
+		
+		$sqlPayment = "SELECT SUM(amount_paid) amount_paid FROM payment WHERE company_id ='$companyId' AND date_of_payment BETWEEN '2018-04-01' AND '2018-04-30'";
+	   	$paymentResult = mysqli_query($conn,$sqlPayment);
+		$paymentRow = mysqli_fetch_array($paymentResult,MYSQLI_ASSOC);
+		
+		
+		  $companyJson['id'] = $companyRow['id'];
+		   $companyJson['company_name'] = $companyRow['company_name'];
+		    $companyJson['total_monthly_rent'] = $companyRow['Total_monthly_rent'];
+			
+			// $paymentJson['id'] = $paymentRow['id'];
+		   $paymentJson['amountPaid'] = $paymentRow['amount_paid'];
+		    $paymentJson['due'] = $companyRow['Total_monthly_rent'] - $paymentRow['amount_paid'];
+			  $paymentJson['dueDate'] = '2018-05-10';
+		    //$paymentJson['dateofPayment'] = $paymentRow['date_of_payment'];
+			
+	  
 	  $count = 1;
       }		
       if($count == 1) {
@@ -37,6 +60,10 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 			 $json1['officeId'] = $row['office_id'];
 			  $json1['companyId'] = $row['company_id'];
 			   $json1['role'] = $row['role'];
+			 
+			   $json1['company'] = $companyJson;
+			   $json1['payment'] = $paymentJson;
+			   
         
       }else {
          //$error = "Your Login Name or Password is invalid";
