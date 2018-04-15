@@ -11,13 +11,16 @@ $description = isset($data['Description']) ? mysqli_real_escape_string($conn,$da
 $joining_date = isset($data['joiningDate']) ? mysqli_real_escape_string($conn,$data['joiningDate']) : "";
 $Total_monthly_rent = isset($data['Tmrent']) ? mysqli_real_escape_string($conn,$data['Tmrent']) : "";
 $officeId = (int) isset($data['officeId']) ? mysqli_real_escape_string($conn,$data['officeId']) : 0;
-
+$file = isset($data['file']) ? mysqli_real_escape_string($conn,$data['file']) : "";
 
 //echo (file_get_contents('php://input'));
 //echo var_dump($data);
 //$UserName = $data['UserName'];
 
+$file =   $_FILES;
 
+//echo var_dump($file);
+//exit();
 
  $json1 = array("CompanyName" => $CompanyName , "description" => $description, "joining_date" => $joining_date, "Total_monthly_rent" => $Total_monthly_rent, "company_type" => $CompanyType,"officeId"=>$officeId);
  // Insert data into data base

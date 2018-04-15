@@ -11,8 +11,9 @@ $Location = isset($data['Location']) ? mysqli_real_escape_string($conn,$data['Lo
 $City = isset($data['City']) ? mysqli_real_escape_string($conn,$data['City']) : "";
 
 
+
 //echo (file_get_contents('php://input'));
-//echo var_dump($data);
+
 //$UserName = $data['UserName'];
 
 
