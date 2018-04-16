@@ -6,6 +6,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	
 $data = json_decode(file_get_contents('php://input'), true);
 $OfficeName = isset($data['OfficeName']) ? mysqli_real_escape_string($conn,$data['OfficeName']) : "";
+$Description = isset($data['Description']) ? mysqli_real_escape_string($conn,$data['Description']) : "";
 $Address = isset($data['Address']) ? mysqli_real_escape_string($conn,$data['Address']) : "";
 $Location = isset($data['Location']) ? mysqli_real_escape_string($conn,$data['Location']) : "";
 $City = isset($data['City']) ? mysqli_real_escape_string($conn,$data['City']) : "";
@@ -19,7 +20,7 @@ $City = isset($data['City']) ? mysqli_real_escape_string($conn,$data['City']) : 
 
  $json1 = array("OfficeName" => $OfficeName , "Address" => $Address, "Location" => $Location, "City" => $City);
  // Insert data into data base
-$sql = "INSERT INTO register_office (OfficeName, Address, Location,City) VALUES ('" . $OfficeName . "', '" . $Address . "', '" . $Location . "', '" . $City . "');";
+$sql = "INSERT INTO register_office (OfficeName,description, Address, Location,City) VALUES ('" . $OfficeName . "','" . $Description . "', '" . $Address . "', '" . $Location . "', '" . $City . "');";
  $qur = $conn->query($sql);
    $id = $conn->insert_id;
  $json1['officeID'] = $id;

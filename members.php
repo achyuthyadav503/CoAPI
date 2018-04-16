@@ -4,7 +4,7 @@ include_once('confi.php');
 
  
  // get data into data base
-$sql = "SELECT * FROM company";
+$sql = "SELECT * FROM company LIMIT 6";
 //echo $sql;
 
  //$result = $conn->query($sql);

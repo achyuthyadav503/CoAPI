@@ -13,7 +13,7 @@ $NoSeats = (int) isset($data['NoSeats']) ? mysqli_real_escape_string($conn,$data
 
  
  // get data into data base
-$sql = "SELECT ro.id,ro.OfficeName,ro.Address,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location";
+$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location";
 if($city>0)
 $sql = $sql." AND ro.City='".$city."'";
 if($location>0)
@@ -33,6 +33,7 @@ $sql = $sql." AND ro.Location='".$location."'";
 	 $json1['Address'] = $row['Address'];
 	  $json1['Location'] = $row['Location'];
 	   $json1['City'] = $row['City'];
+	   $json1['Description'] = $row['description'];
 	
 	$rows[] = $json1;
 }
