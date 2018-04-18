@@ -34,6 +34,23 @@ $sql = $sql." AND ro.Location='".$location."'";
 	  $json1['Location'] = $row['Location'];
 	   $json1['City'] = $row['City'];
 	   $json1['Description'] = $row['description'];
+	   
+	   $id = $row['id'];
+	   $typesql = "SELECT * office_seats where office_id=$id";
+	    $typeresult = mysqli_query($conn,$typesql);
+		 if ($typeresult) {
+		 if (mysqli_num_rows($typeresult) > 0) {
+			 while($typerow = $typeresult->fetch_array()){
+			 
+				 $type['id'] = $typerow['id'];
+				$type['type_of_seats'] = $typerow['type_of_seats'];
+				 $type['no_of_seats'] = $typerow['no_of_seats'];
+				  $type['price_per_seats'] = $typerow['price_per_seats'];
+				
+			 }
+			   $json1['officeSeats'] = $type;
+		 }
+ }
 	
 	$rows[] = $json1;
 }

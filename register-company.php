@@ -20,9 +20,9 @@ $companySeats = isset($data['typesofseats']) ? $data['typesofseats'] : "";
 
 //$file =   $_FILES;
 
-echo var_dump($file);
-echo var_dump($_FILES);
-exit();
+//echo var_dump($file);
+//echo var_dump($_FILES);
+//exit();
 
  $json1 = array("CompanyName" => $CompanyName , "description" => $description, "joining_date" => $joining_date, "Total_monthly_rent" => $Total_monthly_rent, "company_type" => $CompanyType,"officeId"=>$officeId);
  // Insert data into data base
