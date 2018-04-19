@@ -55,7 +55,7 @@ $sql = $sql." AND ro.Location='".$location."'";
 		 
 		  $json1['officeSeats'] = $types;
 		 
-		/* $amenitiessql = "SELECT * office_amenities where office_id=$id";
+		 $amenitiessql = "SELECT * office_amenities where office_id=$id";
 	    $amenitiesresult = mysqli_query($conn,$typesql);
 		 if ($amenitiesresult) {
 		 if (mysqli_num_rows($amenitiesresult) > 0) {
@@ -68,7 +68,7 @@ $sql = $sql." AND ro.Location='".$location."'";
 			 }
 			   $json1['officeAmenities'] = $amenities;
 		 }
- }*/
+ }
 	
 	$rows[] = $json1;
 }

@@ -17,7 +17,7 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
  // Insert data into data base
 
  
-  $sql = "SELECT * FROM users WHERE email = '$UserName' and pwd = '$PassWord' and status =1";
+  $sql = "SELECT * FROM users WHERE (email = '$UserName' or mobile='$UserName') and pwd = '$PassWord' and status =1";
  
 	$result = mysqli_query($conn,$sql);
 
@@ -57,7 +57,7 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 			}
 			}
 	  
-	  $count = 1;
+	  $count = mysqli_num_rows($result);
       }		
       if($count == 1) {
 		 $json1['id'] = $row['id'];
@@ -72,14 +72,17 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 			   $json1['company'] = $companyJson;
 			   $json1['payment'] = $paymentJson;
 			   
+			   $json = array("status" => 1, "msg" => "Login Success",'details'=>$json1);
         
       }else {
+	  
+		
          //$error = "Your Login Name or Password is invalid";
-		  $json = array("status" => 0, "msg" => "Your Login Name or Password is invalid");
+		  $json = array("status" => 0, "msg" => "Your Login ID or Password is invalid");
       }
 	  
 	  
- $json = array("status" => 1, "msg" => "Login Success",'details'=>$json1);
+ 
  }else{
  $json = array("status" => 0, "msg" => "Error with Login!". $conn->error);
  } 

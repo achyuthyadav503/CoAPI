@@ -44,6 +44,8 @@ $sql = "INSERT INTO company (company_name, description, joining_date,Total_month
     $json = array("status" => 0, "msg" => "Error adding register company!". $conn->error);
    }
  }
+ 
+ 
  $json = array("status" => 1, "msg" => "Done register company added!",'details'=>$json1);
  }else{
  $json = array("status" => 0, "msg" => "Error adding register company!". $conn->error);

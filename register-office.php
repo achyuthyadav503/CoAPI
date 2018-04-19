@@ -11,7 +11,7 @@ $Address = isset($data['Address']) ? mysqli_real_escape_string($conn,$data['Addr
 $Location = isset($data['Location']) ? mysqli_real_escape_string($conn,$data['Location']) : "";
 $City = isset($data['City']) ? mysqli_real_escape_string($conn,$data['City']) : "";
 $officeSeats = isset($data['typesofseats']) ? $data['typesofseats'] : "";
-
+$officeAmenities = isset($data['amenities']) ? $data['amenities'] : "";
 
 //echo (file_get_contents('php://input'));
 
@@ -37,9 +37,25 @@ $sql = "INSERT INTO register_office (OfficeName,description, Address, Location,C
    if($officeQur){
    //$json = array("status" => 0, "msg" => "Error adding register company!". $conn->error);
    }else{
-    $json = array("status" => 0, "msg" => "Error adding register company!". $conn->error);
+    $json = array("status" => 0, "msg" => "Error adding office Seats!". $conn->error);
    }
  }
+ 
+ foreach($officeAmenities as $officeAmenitie){
+// echo var_dump($companySeat);
+//exit();
+ $amenities =  isset($officeAmenitie['officeAmenities']) ? mysqli_real_escape_string($conn,$officeAmenitie['officeAmenities']) : '';
+  $officeAmenitieSql = " INSERT INTO office_amenities ( amenities, office_id) VALUES ('" . $amenities . "', '" . $id . "');";
+  $officeAmenitieQur = $conn->query($officeAmenitieSql);
+   if($officeAmenitieQur){
+   //$json = array("status" => 0, "msg" => "Error adding register company!". $conn->error);
+   }else{
+    $json = array("status" => 0, "msg" => "Error adding office Amenities!". $conn->error);
+   }
+ }
+ 
+ 
+ 
  $json = array("status" => 1, "msg" => "Done Office added!",'details'=>$json1);
  }else{
  $json = array("status" => 0, "msg" => "Error adding office!". $conn->error);
