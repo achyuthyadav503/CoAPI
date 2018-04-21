@@ -2,23 +2,15 @@
 include_once('confi.php');
 
  $rows = array();
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-	$data = json_decode(file_get_contents('php://input'), true);
-$city = (int) isset($data['location']) ? mysqli_real_escape_string($conn,$data['City']) : "";
-$location = (int) isset($data['location']) ? mysqli_real_escape_string($conn,$data['location']) : "";
-$NoSeats = (int) isset($data['NoSeats']) ? mysqli_real_escape_string($conn,$data['NoSeats']) : "";
+	//$officeId = $_GET['officeId'];
 
 
+$officeId = isset($_GET['officeId']) ? mysqli_real_escape_string($conn,$_GET['officeId']) : 0;
 
  
  // get data into data base
-$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location";
-if($city>0)
-$sql = $sql." AND ro.City='".$city."'";
-if($location>0)
-$sql = $sql." AND ro.Location='".$location."'";
-//echo $sql;
+$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location AND ro.id = $officeId";
+
 
  //$result = $conn->query($sql);
  $result = mysqli_query($conn,$sql);
@@ -55,36 +47,35 @@ $sql = $sql." AND ro.Location='".$location."'";
 		 
 		  $json1['officeSeats'] = $types;
 		 
-		 $amenitiessql = "SELECT * office_amenities where office_id=$id";
-	    $amenitiesresult = mysqli_query($conn,$typesql);
+		 $amenitiessql = "SELECT * from office_amenities where office_id=$id";
+	    $amenitiesresult = mysqli_query($conn,$amenitiessql);
 		 if ($amenitiesresult) {
 		 if (mysqli_num_rows($amenitiesresult) > 0) {
+		 $amenities = array();
 			 while($amenitiesrow = $amenitiesresult->fetch_array()){
-			 
-				 $amenities['id'] = $amenitiesrow['id'];
-				$amenities['amenities'] = $amenitiesrow['amenities'];
 				
+				//echo var_dump($amenitiesrow);
+			
+				 $amenitie['id'] = $amenitiesrow['id'];
+				$amenitie['amenities'] = $amenitiesrow['amenities'];
 				
+				 $amenities[] =  $amenitie;
 			 }
 			   $json1['officeAmenities'] = $amenities;
 		 }
+		 //	exit();
  }
 	
 	$rows[] = $json1;
 }
 
-$json = array("status" => 1, "msg" => "Success",'list'=>$rows);
+$json = array("status" => 1, "msg" => "Success",'office'=>$json1);
  }else{
 	 $json = array("status" => 1, "msg" => "No Office available",'list'=>$rows);
  }
  }else{
 	 $json = array("status" => 1, "msg" => "No Office available",'list'=>$rows);
  }
-
- 
-}else{
- $json = array("status" => 0, "msg" => "Request method not accepted". $conn->error,'list'=>$rows);
-} 
 
 mysqli_close($conn); 
 

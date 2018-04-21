@@ -46,9 +46,9 @@ $sql = $sql." AND ro.Location='".$location."'";
 				$type['typeOfSeats'] = $typerow['type_of_seats'];
 				 $type['noOfSeats'] = $typerow['no_of_seats'];
 				  $type['pricePerSeats'] = $typerow['price_per_seats'];
-				
+				 $types[] = $type;
 			 }
-			 $types[] = $type;
+			
 			  
 		 }
 		 }
