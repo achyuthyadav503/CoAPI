@@ -55,11 +55,15 @@ $sql = "INSERT INTO register_office (OfficeName,description, Address, Location,C
  }
  
  $to      = "baddala.venugopalreddy@gmail.com";
+ $email   = "baddala.venugopalreddy@gmail.com";
+ $messageBody = '';
 
                                      $subject = "Registration success";
                                      $message ="Your registration has been successfull.
 
                                             Please click on the following link to activate you account.
+											
+											<a href='http://members.cospaze.in/activate-account'>Activate</a>
 
 
 															Regards,
@@ -87,7 +91,7 @@ $sql = "INSERT INTO register_office (OfficeName,description, Address, Location,C
                                     </div>
                                     </body>';
                               
-                              mail($to, $subject, $messageBody, $headers);
+                            //  mail($to, $subject, $messageBody, $headers);
  
  
  
