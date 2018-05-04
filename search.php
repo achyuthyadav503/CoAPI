@@ -1,6 +1,6 @@
   <?php
 include_once('confi.php');
-
+$host = $_SERVER['HTTP_HOST'];
  $rows = array();
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -54,6 +54,28 @@ $sql = $sql." AND ro.Location='".$location."'";
 		 }
 		 
 		  $json1['officeSeats'] = $types;
+		   $images = array();
+		  $imagessql = "SELECT * from office_images where office_id=$id";
+	    $imagesresult = mysqli_query($conn,$imagessql);
+		 if ($imagesresult) {
+		 if (mysqli_num_rows($imagesresult) > 0) {
+		
+			 while($imagesrow = $imagesresult->fetch_array()){
+				
+				//echo var_dump($amenitiesrow);
+			
+				 $image['id'] = $imagesrow['id'];
+				//$image['imagePath'] = $imagesrow['image_path'];
+				 $image['imagePath'] = "http://".$host.'/CoAPI/officeImages/'.$imagesrow['image_path'];
+				
+				 $images[] =  $image;
+			 }
+			  
+		 }
+		  
+		 //	exit();
+			}
+ $json1['officeImages'] = $images;
 		 
 		/* $amenitiessql = "SELECT * office_amenities where office_id=$id";
 	    $amenitiesresult = mysqli_query($conn,$typesql);

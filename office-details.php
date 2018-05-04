@@ -3,13 +3,13 @@ include_once('confi.php');
 
  $rows = array();
 	//$officeId = $_GET['officeId'];
-
+$host = $_SERVER['HTTP_HOST'];
 
 $officeId = isset($_GET['officeId']) ? mysqli_real_escape_string($conn,$_GET['officeId']) : 0;
 
  
  // get data into data base
-$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location AND ro.id = $officeId";
+$sql = "SELECT ro.id,ro.OfficeName,ro.office_logo,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location AND ro.id = $officeId";
 
 
  //$result = $conn->query($sql);
@@ -26,6 +26,7 @@ $sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location
 	  $json1['Location'] = $row['Location'];
 	   $json1['City'] = $row['City'];
 	   $json1['Description'] = $row['description'];
+	    $json1['officeLogo'] = "http://".$host.'/CoAPI/officeImages/'.$row['office_logo'];
 	   $types = array();
 	   $id = $row['id'];
 	   $typesql = "SELECT * from office_seats where office_id=$id";
@@ -38,9 +39,10 @@ $sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location
 				$type['typeOfSeats'] = $typerow['type_of_seats'];
 				 $type['noOfSeats'] = $typerow['no_of_seats'];
 				  $type['pricePerSeats'] = $typerow['price_per_seats'];
+				  $types[] = $type;
 				
 			 }
-			 $types[] = $type;
+			 
 			  
 		 }
 		 }
@@ -65,6 +67,28 @@ $sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location
 		 }
 		 //	exit();
  }
+  $images = array();
+        $imagessql = "SELECT * from office_images where office_id=$id";
+	    $imagesresult = mysqli_query($conn,$imagessql);
+		
+		 if ($imagesresult) {
+		 if (mysqli_num_rows($imagesresult) > 0) {
+		
+			 while($imagesrow = $imagesresult->fetch_array()){
+				
+				//echo var_dump($amenitiesrow);
+			
+				 $image['id'] = $imagesrow['id'];
+				//$image['imagePath'] = $imagesrow['image_path'];
+				$image['imagePath'] = "http://".$host.'/CoAPI/officeImages/'.$imagesrow['image_path'];
+				
+				 $images[] =  $image;
+			 }
+			 
+		 }
+		 //	exit();
+ }
+   $json1['officeImages'] = $images;
 	
 	$rows[] = $json1;
 }
