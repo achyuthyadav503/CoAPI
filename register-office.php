@@ -12,6 +12,8 @@ $Location = isset($data['Location']) ? mysqli_real_escape_string($conn,$data['Lo
 $City = isset($data['City']) ? mysqli_real_escape_string($conn,$data['City']) : "";
 $officeSeats = isset($data['typesofseats']) ? $data['typesofseats'] : "";
 $officeAmenities = isset($data['amenities']) ? $data['amenities'] : "";
+$lat = isset($data['lat']) ? $data['lat'] : "";
+$lng = isset($data['lng']) ? $data['lng'] : "";
 
 //echo (file_get_contents('php://input'));
 
@@ -19,9 +21,9 @@ $officeAmenities = isset($data['amenities']) ? $data['amenities'] : "";
 
 
 
- $json1 = array("OfficeName" => $OfficeName , "Address" => $Address, "Location" => $Location, "City" => $City);
+ $json1 = array("OfficeName" => $OfficeName , "Address" => $Address, "Location" => $Location, "City" => $City,"lat" => $lat,"lng" => $lng);
  // Insert data into data base
-$sql = "INSERT INTO register_office (OfficeName,description, Address, Location,City) VALUES ('" . $OfficeName . "','" . $Description . "', '" . $Address . "', '" . $Location . "', '" . $City . "');";
+$sql = "INSERT INTO register_office (OfficeName,description, Address, Location,City,lat,lng) VALUES ('" . $OfficeName . "','" . $Description . "', '" . $Address . "', '" . $Location . "', '" . $City . "','" . $lat . "','" . $lng . "');";
  $qur = $conn->query($sql);
    $id = $conn->insert_id;
  $json1['officeID'] = $id;
