@@ -37,7 +37,7 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 		$companyRow = mysqli_fetch_array($companyResult,MYSQLI_ASSOC);
 		
 		if ($companyRow!=null){
-		$sqlPayment = "SELECT SUM(amount_paid) amount_paid FROM payment WHERE company_id ='$companyId' AND date_of_payment BETWEEN '2018-04-01' AND '2018-04-30'";
+		$sqlPayment = "SELECT SUM(amount_paid) amount_paid FROM payment WHERE company_id ='$companyId' AND date_of_payment BETWEEN '2018-05-01' AND '2018-05-30'";
 	   	$paymentResult = mysqli_query($conn,$sqlPayment);
 
 		if($paymentResult){
@@ -50,7 +50,7 @@ $PassWord = isset($data['PassWord']) ? mysqli_real_escape_string($conn,$data['Pa
 			// $paymentJson['id'] = $paymentRow['id'];
 		   $paymentJson['amountPaid'] = $paymentRow['amount_paid'];
 		    $paymentJson['due'] = $companyRow['Total_monthly_rent'] - $paymentRow['amount_paid'];
-			  $paymentJson['dueDate'] = '2018-05-10';
+			  $paymentJson['dueDate'] = '2018-05-09';
 		    //$paymentJson['dateofPayment'] = $paymentRow['date_of_payment'];
 			}
 			}

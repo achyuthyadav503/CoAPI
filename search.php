@@ -5,19 +5,28 @@ $host = $_SERVER['HTTP_HOST'];
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$data = json_decode(file_get_contents('php://input'), true);
-$city = (int) isset($data['location']) ? mysqli_real_escape_string($conn,$data['City']) : "";
+$city = (int) isset($data['City']) ? mysqli_real_escape_string($conn,$data['City']) : "";
 $location = (int) isset($data['location']) ? mysqli_real_escape_string($conn,$data['location']) : "";
 $NoSeats = (int) isset($data['NoSeats']) ? mysqli_real_escape_string($conn,$data['NoSeats']) : "";
+$lat = isset($data['lat']) ? $data['lat'] : "";
+$lng = isset($data['lng']) ? $data['lng'] : "";
 
 
 
  
  // get data into data base
-$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location";
-if($city>0)
+ $sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,l.location Location,c.city City,ro.lat,ro.lng  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location and lat.id=ro.lat and lng.id=ro.lng";
+$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,ro.Location,ro.City FROM register_office ro";
+/*if($city>0)
 $sql = $sql." AND ro.City='".$city."'";
 if($location>0)
-$sql = $sql." AND ro.Location='".$location."'";
+$sql = $sql." AND ro.Location='".$location."'"; */
+if($lat!=''){
+$sql = "SELECT ro.id,ro.OfficeName,ro.Address,ro.description,ro.Location,ro.City, ( 7959 * acos( cos( radians(".$lat.") ) * cos( radians( ro.lat ) ) 
+    * cos( radians( ro.lng ) - radians(".$lng.") ) + sin( radians(".$lat.") ) * sin(radians(ro.lat)) ) ) AS distance FROM register_office ro HAVING distance < 3 ";
+
+//$sql = $sql." AND ro.lat='".$lat."'";
+}
 //echo $sql;
 
  //$result = $conn->query($sql);

@@ -9,7 +9,7 @@ $officeId = isset($_GET['officeId']) ? mysqli_real_escape_string($conn,$_GET['of
 
  
  // get data into data base
-$sql = "SELECT ro.id,ro.OfficeName,ro.office_logo,ro.Address,ro.description,l.location Location,c.city City  FROM register_office ro, location l, city c where c.id=ro.City and l.id=ro.Location AND ro.id = $officeId";
+$sql = "SELECT ro.id,ro.OfficeName,ro.office_logo,ro.Address,ro.description,ro.Location,ro.City  FROM register_office ro where ro.id = $officeId";
 
 
  //$result = $conn->query($sql);
@@ -26,7 +26,7 @@ $sql = "SELECT ro.id,ro.OfficeName,ro.office_logo,ro.Address,ro.description,l.lo
 	  $json1['Location'] = $row['Location'];
 	   $json1['City'] = $row['City'];
 	   $json1['Description'] = $row['description'];
-	    $json1['officeLogo'] = "http://".$host.'/CoAPI/officeImages/'.$row['office_logo'];
+	    $json1['officeLogo'] = "http://".$host.'/CoAPI/members/'.$row['office_logo'];
 	   $types = array();
 	   $id = $row['id'];
 	   $typesql = "SELECT * from office_seats where office_id=$id";
