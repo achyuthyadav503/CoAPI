@@ -5,7 +5,7 @@ $host = $_SERVER['HTTP_HOST'];
 
  
  // get data into data base
-$sql = "SELECT * FROM company order by id desc LIMIT 6";
+$sql = "SELECT * FROM company order by id desc LIMIT 5";
 //echo $sql;
 
  //$result = $conn->query($sql);
