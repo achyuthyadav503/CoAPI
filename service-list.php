@@ -18,6 +18,9 @@ $sql = "SELECT * FROM services_mater";
 	 
 	$rows[] = $json1;
 }
+ $json1['id'] = 0;
+    $json1['serviceName'] = 'Other';
+	$rows[] = $json1;
 $json = array("status" => 1, "msg" => "Success",'servicesList'=>$rows);
  }else{
 	 $json = array("status" => 1, "msg" => "No services available",'servicesList'=>$rows);
