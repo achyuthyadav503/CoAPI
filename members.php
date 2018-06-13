@@ -3,9 +3,12 @@ include_once('confi.php');
 
 $host = $_SERVER['HTTP_HOST'];
 
- 
+
+$limit = isset($_GET['limit']) ? mysqli_real_escape_string($conn,$_GET['limit']) : 0;
  // get data into data base
-$sql = "SELECT * FROM company order by id desc LIMIT 5";
+$sql = "SELECT * FROM company order by id desc LIMIT 100";
+
+
 //echo $sql;
 
  //$result = $conn->query($sql);
